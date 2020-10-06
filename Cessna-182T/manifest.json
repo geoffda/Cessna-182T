@@ -1,0 +1,29 @@
+{
+    "minimum_game_version":  "1.9.3",
+    "manufacturer":  "Textron Aviation",
+    "release_notes":  {
+                          "neutral":  {
+                                          "LastUpdate":  "",
+                                          "OlderHistory":  ""
+                                      }
+                      },
+    "package_version":  "0.5.1",
+    "creator":  "Geoff Darst",
+    "dependencies":  [
+                         {
+                             "package_version":  "1.1.1",
+                             "name":  "carenado-aircraft-ct182t-skylane-g1000"
+                         },
+                         {
+                             "package_version":  "0.1.88",
+                             "name":  "fs-base"
+                         },
+                         {
+                             "package_version":  "0.1.65",
+                             "name":  "fs-base-aircraft-common"
+                         }
+                     ],
+    "total_package_size":  "00000000000000049728",
+    "content_type":  "AIRCRAFT",
+    "title":  "Cessna-182T"
+}

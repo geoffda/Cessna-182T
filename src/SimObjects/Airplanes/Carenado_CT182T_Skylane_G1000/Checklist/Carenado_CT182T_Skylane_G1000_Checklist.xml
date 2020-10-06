@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<SimBase.Document Type="Checklist" version="1,0">
+    <Checklist.Checklist>
+        <IncludeCheckpointLibrary FileName="CheckpointsLibrary\\Asobo_DefaultCheckpointLibrary.xml"/>
+        <IncludeCheckpointLibrary FileName="SimObjects\\Airplanes\\Carenado_CT182T_Skylane_G1000\\Checklist\\Library.xml"/>
+        <Step ChecklistStepId="PREFLIGHT_GATE">
+            
+            <!-- Preflight inspection - cockpit 1/2 -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_PREFLIGHT_INSPECTION_COCKPIT_1">
+                <Checkpoint ReferenceId="C182T_AS1000_Pitot_Cover_Removed"/>
+                <Checkpoint ReferenceId="Documentation_Onboard"/>
+                <Checkpoint ReferenceId="Weight_And_Balance_Check"/>
+                <Checkpoint ReferenceId="Parking_Brake_Set"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Control_Wheel_Lock_Removed"/>
+                <Checkpoint ReferenceId="Magnetos_Off"/>
+                <Checkpoint ReferenceId="Avionics_Switch_Bus_1_And_Bus_2_Off"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_And_Bat_On"/>
+                <Checkpoint ReferenceId="C182T_AS1000_PFD_On">
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Fuel_Quantity_Indicator_Check">
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="LOW_FUEL_L_AND_LOW_FUEL_R_ANNUNCIATORS_OFF">
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Oil_Pressure_Annunciator_Check_On">
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Low_Vacuum_Annunciator_Check_On">
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Avionics_Bus_Switch_On">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_AVIONICS_SWITCH_BUS_1" ExpectationTT="TT:GAME.CHECKLIST_ON"/>
+                    <SetTemplateValue Id="Circuit Avionics">
+                        <Val SimVarName="CIRCUIT SWITCH ON:24" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateAction Id="Toggle Avionics Bus" Copilot="True" Condition="TestValueFalse" Once="true" Code="24 (&gt;K:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                    <Instrument Id="ELECTRICAL_Switch_Avionics_Master1"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="FORWARD_AVIONICS_FAN_CHECK_FAN_IS_HEARD">
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Avionics_Bus_Switch_Off">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_AVIONICS_SWITCH_BUS_1" ExpectationTT="TT:GAME.CHECKLIST_OFF"/>
+                    <Clue name="TT:CLUE.AVIONICS_MASTER_SWITCH_BUS1_OFF"/>
+                    <SetTemplateValue Id="Circuit Avionics">
+                        <Val SimVarName="CIRCUIT SWITCH ON:24" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateAction Id="Toggle Avionics Bus" Copilot="True" Condition="TestValueFalse" Once="true" Code="24 (&gt;K:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                    <Instrument Id="ELECTRICAL_Switch_Avionics_Master1"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Avionics_Bus_Switch_On">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_AVIONICS_SWITCH_BUS_2" ExpectationTT="TT:GAME.CHECKLIST_ON"/>
+                    <Clue name="TT:CLUE.AVIONICS_MASTER_SWITCH_BUS2_ON"/>
+                    <SetTemplateValue Id="Circuit Avionics">
+                        <Val SimVarName="CIRCUIT SWITCH ON:25" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateAction Id="Toggle Avionics Bus" Copilot="True" Condition="TestValueFalse" Once="true" Code="25 (&gt;K:2:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                    <Instrument Id="ELECTRICAL_Switch_Avionics_Master2"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="AFT_AVIONICS_FAN_CHECK_FAN_IS_HEARD"/>
+                <Checkpoint ReferenceId="Avionics_Bus_Switch_Off">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_AVIONICS_SWITCH_BUS_2" ExpectationTT="TT:GAME.CHECKLIST_OFF"/>
+                    <Clue name="TT:CLUE.AVIONICS_MASTER_SWITCH_BUS2_OFF"/>
+                    <SetTemplateValue Id="Circuit Avionics">
+                        <Val SimVarName="CIRCUIT SWITCH ON:25" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateAction Id="Toggle Avionics Bus" Copilot="True" Condition="TestValueFalse" Once="true" Code="25 (&gt;K:2:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                    <Instrument Id="ELECTRICAL_Switch_Avionics_Master2"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="PITOT_HEAT_ON_CHECK_WORKING"/>
+                <Checkpoint ReferenceId="PITOT_HEAT_CHECK_OFF">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_PITOT_HEAT" ExpectationTT="TT:GAME.CHECKLIST_OFF"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="STALL_WARNING_TEST"/>
+                <Checkpoint ReferenceId="Low_Volts_Annunciator_Check_On">
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_And_Bat_Off"/>
+                <Checkpoint ReferenceId="Elevator_Trim_Neutral">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_ELEVATOR_TRIM" ExpectationTT="TT:GAME.CHECKLIST_TAKEOFF_POSITION"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Fuel_Selector_Both"/>
+                <Checkpoint ReferenceId="Static_Pressure_Alt_Source_Valve_Off"/>
+                <Checkpoint ReferenceId="OXYGEN_PRESSURE_AND_MASKS_CHECK"/>
+                <Checkpoint ReferenceId="FIRE_EXTINGUISHER_CHECK"/>
+            </Page>
+            
+            <!-- Before starting engine -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_BEFORE_STARTING_ENGINE">
+                <Checkpoint ReferenceId="Preflight_Inspection_Complete"/>
+                <Checkpoint ReferenceId="Passenger_Briefing_Complete" />
+                <Checkpoint ReferenceId="Seat_Belt_Adjust_And_Lock"/>
+                <Checkpoint ReferenceId="Brakes_Test_And_Set"/>
+                <Checkpoint ReferenceId="Circuit_Breakers_All_Pushed">
+                    <ForceCamera name="Light Switches"/>
+                    <Instrument Id="ELECTRICAL_Panel_Breakers"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_All_Electrical_Equipment_Off"/>
+                <Checkpoint ReferenceId="Avionics_Switch_Bus_1_And_Bus_2_Off">
+                    <SetTemplateValue Id="Circuit Avionics 1">
+                        <Val SimVarName="CIRCUIT SWITCH ON:24" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateValue Id="Circuit Avionics 2">
+                        <Val SimVarName="CIRCUIT SWITCH ON:25" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateAction Id="Toggle Avionics Bus 1" Copilot="True" Condition="TestValueFalse" Once="true" Code="24 (&gt;K:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                    <SetTemplateAction Id="Toggle Avionics Bus 2" Copilot="True" Condition="TestValueFalse" Once="true" Code="25 (&gt;K:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_Cowl_Flaps_Open"/>
+                <Checkpoint ReferenceId="Fuel_Selector_Both"/>
+            </Page>
+            
+            <!-- Starting Engine -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_STARTING_ENGINE">
+                <Checkpoint ReferenceId="Throttle_Open_1/4"/>
+                <Checkpoint ReferenceId="PROP_RPM_LEVER_MAX">
+                    <ForceCamera name="Pedestal"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Mixture_Lean">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_MIXTURE" ExpectationTT="TT:GAME.CHECKLIST_IDLE_CUT_OFF"/>
+                    <Clue name="TT:CLUE.MIXTURE_CUTOFF"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="STBY_BATT_Switch_Test_Hold"/>
+                <Checkpoint ReferenceId="STBY_BATT_Switch_arm_verify_PFD"/>
+                <Checkpoint ReferenceId="Engine_Indicating_System_Check_Parameters">
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="BUS_E_VOLTS_24_V_MINIMUM">
+                    <SetTemplateValue Id="Essential Bus Voltage">
+                        <Val SimVarName="ELECTRICAL MAIN BUS VOLTAGE:6" Units="volts"/>
+                    </SetTemplateValue>
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="M_BUS_1_5_VOLTS_OR_LESS">
+                    <SetTemplateValue Id="Main Bus Voltage">
+                        <Val SimVarName="ELECTRICAL MAIN BUS VOLTAGE:3" Units="volts"/>
+                    </SetTemplateValue>
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="BATT_S_AMPS_CHECK_VERIFY_DISCHARGE">
+                    <SetTemplateValue Id="STBY Battery Load">
+                        <Val SimVarName="ELECTRICAL BATTERY LOAD:2" Units="amps"/>
+                    </SetTemplateValue>
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="STBY_BATT_ANNUNCIATOR_CHECK_ON"/>
+                <Checkpoint ReferenceId="Propeller_Area_Clear"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_And_Bat_On"/>
+                <Checkpoint ReferenceId="Beacon_Light_On"/>
+                <Checkpoint ReferenceId="Mixture_Rich"/>
+                <Checkpoint ReferenceId="Aux_Fuel_Pump_On_3-5Sec_Then_Off"/>
+                <Checkpoint ReferenceId="Mixture_Lean"/>
+                <Checkpoint ReferenceId="Ignition_Start"/>
+                <Checkpoint ReferenceId="Mixture_Rich">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_MIXTURE" ExpectationTT="TT:GAME.CHECKLIST_RICH_WHEN_ENGINE_STARTS"/>
+                </Checkpoint>
+            </Page>
+            
+            <!-- After starting engine 1/2 -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_AFTER_STARTING_ENGINE_1">
+                <Checkpoint ReferenceId="Oil_Pressure_Check">
+                    <SetTemplateValue Id="Green_low_value">
+                        <Val value="45"/>
+                    </SetTemplateValue>
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Amps_Check_Verify_Charge_Positive">
+                    <SetTemplateValue Id="STBY Battery Load">
+                        <Val SimVarName="ELECTRICAL BATTERY LOAD:2" Units="amps"/>
+                    </SetTemplateValue>
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Low_Volts_Annunciator_Check_Off">
+                    <ForceCamera name="Instruments"/>
+                </Checkpoint>
+                <Block SubjectTT="TT:Internal Power">
+                    <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_Off"/>
+                    <Checkpoint ReferenceId="Taxi_Light_On"/>
+                    <Checkpoint ReferenceId="Landing_Light_On"/>
+                    <Checkpoint ReferenceId="Throttle_Adjust_1000_RPM">
+                        <ForceCamera name="ClosePilot"/>
+                        <Instrument Id="HTML:AS1000_PFD:Piston_RPMGauge"/>
+                        <Instrument Id="HTML:AS1000_MFD:Piston_RPMGauge"/>
+                    </Checkpoint>
+                    <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_And_Bat_On"/>
+                    <Checkpoint ReferenceId="Throttle_Adjust_1500_RPM"/>
+                    <Checkpoint ReferenceId="Amps_Check_Verify_Charge_Positive">
+                        <SetTemplateValue Id="STBY Battery Load">
+                            <Val SimVarName="ELECTRICAL BATTERY LOAD:2" Units="amps"/>
+                        </SetTemplateValue>
+                        <ForceCamera name="Instruments"/>
+                    </Checkpoint>
+                    <Checkpoint ReferenceId="Low_Volts_Annunciator_Check_Off">
+                        <ForceCamera name="Instruments"/>
+                    </Checkpoint>
+                </Block>
+                <Checkpoint ReferenceId="Navigation_Lights_On"/>
+                <Checkpoint ReferenceId="Avionics_Switch_Bus_1_And_Bus_2_On">
+                    <SetTemplateValue Id="Circuit Avionics 1">
+                        <Val SimVarName="CIRCUIT SWITCH ON:24" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateValue Id="Circuit Avionics 2">
+                        <Val SimVarName="CIRCUIT SWITCH ON:25" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateAction Id="Toggle Avionics Bus 1" Copilot="True" Condition="TestValueFalse" Once="true" Code="24 (&gt;K:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                    <SetTemplateAction Id="Toggle Avionics Bus 2" Copilot="True" Condition="TestValueFalse" Once="true" Code="25 (&gt;K:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                </Checkpoint>
+            </Page>
+            
+            <!-- Before take-off -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_BEFORE_TAKE_OFF">
+                <Checkpoint ReferenceId="Parking_Brake_Set"/>
+                <Checkpoint ReferenceId="PILOT_AND_PASSENGER_SEAT_BACKS_MOST_UPRIGHT_POSITION"/>
+                <Checkpoint ReferenceId="Seat_Belt_Adjust_And_Lock"/>
+                <Checkpoint ReferenceId="Doors_Locked"/>
+                <Checkpoint ReferenceId="Flight_Control_Free_And_Correct"/>
+                <Checkpoint ReferenceId="C182T_AS1000_PFD_No_Red_Xs"/>
+                <Block SubjectTT="TT:Altimeters">
+                    <Checkpoint ReferenceId="ALTIMETER_PFD_SET_BARO"/>
+                    <Checkpoint ReferenceId="STANDBY_ALTIMETER_SET"/>
+                </Block>
+                <Checkpoint ReferenceId="Standby_flight_instruments_check"/>
+                <Checkpoint ReferenceId="Fuel_Quantity_Indicator_Check"/>
+                <Checkpoint ReferenceId="Mixture_Rich"/>
+                <Checkpoint ReferenceId="Fuel_Selector_Both"/>
+                <Checkpoint ReferenceId="Autopilot_Engage"/>
+                <Checkpoint ReferenceId="Flight_Control_Move_Against_AP"/>
+                <Checkpoint ReferenceId="AP_TRIM_DISC_BUTTON_PRESS"/>
+                <Checkpoint ReferenceId="FLIGHT_DIRECTOR_OFF"/>
+                <Checkpoint ReferenceId="TRIMS_SET_FOR_TAKEOFF"/>
+                <Block SubjectTT="TT:Run Up">
+                    <Checkpoint ReferenceId="Throttle_Set_1800_RPM" />
+                    <!--UNDONE: Technically 175 RPM drop is allowed, we should add a custom checkpoint for this-->
+                    <Checkpoint ReferenceId="Magneto_150_RPM_Max_Decrease"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_Cycle_Propeller" />
+                    <Checkpoint ReferenceId="Vaccuum_Gauge_Check"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_Engine_Indicators_Check"/>
+                    <Checkpoint ReferenceId="Ammeters_and_voltmeters_check"/>                  
+                </Block>
+                <Checkpoint ReferenceId="C182T_AS1000_ANNUNCIATORS_OFF"/>
+                <Checkpoint ReferenceId="POWER_LEVER_IDLE"/>
+                <Checkpoint ReferenceId="Engine_Idle_Below_1000RPM"/>
+                <Checkpoint ReferenceId="Throttle_Friction_Lock_Adjust"/>
+                <Checkpoint ReferenceId="Radios_Set">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_COM_FREQUENCYS" ExpectationTT="TT:GAME.CHECKLIST_SET"/>
+                    <Clue name="TT:CLUE.COM_SET"/>
+                    <Instrument Id="AS1000_PFD_Knob_COM"/>
+                    <Instrument Id="HTML:AS1000_PFD:Com1"/>
+                    <Instrument Id="HTML:AS1000_PFD:Com2"/>
+                    <Instrument Id="HTML:G1000_PFD:Com1"/>
+                    <Instrument Id="HTML:G1000_PFD:Com2"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Avionics_Set">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_NAV_FREQUENCYS" ExpectationTT="TT:GAME.CHECKLIST_SET"/>
+                    <Clue name="TT:CLUE.NAV_SET"/>
+                    <Instrument Id="AS1000_PFD_Knob_NAV"/>
+                    <Instrument Id="HTML:AS1000_PFD:Nav1"/>
+                    <Instrument Id="HTML:AS1000_PFD:Nav2"/>
+                    <Instrument Id="HTML:G1000_PFD:Nav1"/>
+                    <Instrument Id="HTML:G1000_PFD:Nav2"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="FMS_GPS_FLIGHT_PLAN_AS_DESIRED"/>
+                <Checkpoint ReferenceId="XPDR_SQUAWK_SET">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_XPDR" ExpectationTT="TT:GAME.CHECKLIST_SET"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="CDI_SOFTKEY_SELECT_NAV_SOURCE">
+                    <Instrument Id="AS1000_PFD_Push_Softkey_6"/>
+                    <Instrument Id="HTML:AS1000_PFD:XPDRValue"/>
+                    <Instrument Id="HTML:AS1000_PFD:XPDRMode"/>
+                    <Instrument Id="HTML:AS1000_PFD:SoftKeys"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="CABIN_PWR_12_V_SWITCH_OFF"/>
+                <Checkpoint ReferenceId="C182T_AS1000_FLAPS_0-20_DEGREES"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Cowl_Flaps_Open"/>
+                <Checkpoint ReferenceId="CABIN_WINDOWS_CLOSED_AND_LOCKED"/>
+                <Checkpoint ReferenceId="Strobe_Light_On"/>
+                <Checkpoint ReferenceId="Parking_Brake_Release"/>
+            </Page>
+        </Step>
+        
+        <Step ChecklistStepId="FLIGHT_TAKEOFF">
+            
+            <!-- Normal take-off -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_NORMAL_TAKE_OFF">
+                <Checkpoint ReferenceId="C182T_AS1000_FLAPS_0-20_DEGREES">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_THROTTLE_TO_32_INCHES">
+                    <ForceCamera name="ClosePilot"/>
+                    <!--UNDONE: Change these to manifold pressure instruments
+                    <Instrument Id="HTML:AS1000_PFD:Piston_RPMGauge"/>
+                    <Instrument Id="HTML:AS1000_MFD:Piston_RPMGauge"/>-->
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_PROPELLER_TO_2400_RPM"/>
+                <Checkpoint ReferenceId="C182T_AS1000_MIXTURE_24_GPH"/>
+                <Checkpoint ReferenceId="C182T_AS1000_ROTATE"/>
+                <Checkpoint ReferenceId="Airspeed_70-80_KIAS">
+                    <ForceCamera name="ClosePilot"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Flaps_Up_Above_300_Ft">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>
+            </Page>
+
+            <!-- Enroute climb -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_ENROUTE_CLIMB">
+                <Checkpoint ReferenceId="Airspeed_70-85_KIAS"/>
+                <Checkpoint ReferenceId="C182T_AS1000_THROTTLE_TO_25_INCHES">
+                    <ForceCamera name="ClosePilot"/>
+                    <!--UNDONE: Change these to manifold pressure instruments
+                    <Instrument Id="HTML:AS1000_PFD:Piston_RPMGauge"/>
+                    <Instrument Id="HTML:AS1000_MFD:Piston_RPMGauge"/>-->
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_PROPELLER_TO_2400_RPM"/>
+                <Checkpoint ReferenceId="C182T_AS1000_MIXTURE_16_GPH"/>
+                <Checkpoint ReferenceId="Fuel_Selector_Both"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Cowl_Flaps_Open"/>
+                <Checkpoint ReferenceId="OXYGEN_ON"/>
+            </Page>
+        </Step>
+
+        <Step ChecklistStepId="FLIGHT_CRUISE">
+            <!-- Cruise -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_CRUISE">
+                <Checkpoint ReferenceId="C182T_AS1000_THROTTLE_15-28_INCHES"/>
+                <Checkpoint ReferenceId="C182T_AS1000_PROPELLER_TO_2400_RPM"/>
+                <!--UNDONE: Verify that this is correct (we should be adjusting trim for cruise)-->
+                <Checkpoint ReferenceId="TRIMS_SET"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Cowl_Flaps_Closed"/>
+                <Checkpoint ReferenceId="FMS_GPS_REVIEW_AND_BRIEF"/>
+            </Page>
+        </Step>
+
+        <Step ChecklistStepId="FLIGHT_DESCENT">
+            <!-- Descent -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_DESCENT">
+                <Checkpoint ReferenceId="POWER_LEVER_AS_REQUIRED">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_POWER" ExpectationTT="TT:GAME.CHECKLIST_AS_DESIRED"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Mixture_Richen">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_MIXTURE" ExpectationTT="TT:GAME.CHECKLIST_ADJUST"/>
+                    <Clue name="TT:CLUE.MIXTURE_ADJUST"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_Cowl_Flaps_Closed"/>
+                <Block SubjectTT="TT:Altimeters">
+                    <Checkpoint ReferenceId="ALTIMETER_PFD_SET_BARO"/>
+                    <Checkpoint ReferenceId="STANDBY_ALTIMETER_SET"/>
+                </Block>
+                <Checkpoint ReferenceId="ALT_SEL_SET"/>
+                <Checkpoint ReferenceId="CDI_SOFTKEY_SELECT_NAV_SOURCE">
+                    <Instrument Id="AS1000_PFD_Push_Softkey_6"/>
+                    <Instrument Id="HTML:AS1000_PFD:XPDRValue"/>
+                    <Instrument Id="HTML:AS1000_PFD:XPDRMode"/>
+                    <Instrument Id="HTML:AS1000_PFD:SoftKeys"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="FMS_GPS_REVIEW_AND_BRIEF"/>
+                <Checkpoint ReferenceId="Fuel_Selector_Both"/>
+                <Checkpoint ReferenceId="Flaps_As_Desired_0-10_below_110_KIAS">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>
+            </Page>
+        </Step>
+
+        <Step ChecklistStepId="LANDING_APPROACH">
+            <!-- Before landing -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_BEFORE_LANDING">
+                <Checkpoint ReferenceId="PILOT_AND_PASSENGER_SEAT_BACKS_MOST_UPRIGHT_POSITION"/>
+                <Checkpoint ReferenceId="Seat_Belt_Secured_And_Locked"/>
+                <Checkpoint ReferenceId="Fuel_Selector_Both"/>
+                <Checkpoint ReferenceId="Mixture_Rich"/>
+                <Checkpoint ReferenceId="PROP_RPM_LEVER_MAX"/>
+                <Checkpoint ReferenceId="TAXI_AND_LANDING_LIGHTS_ON"/>
+                <Checkpoint ReferenceId="Autopilot_Off"/>
+                <Checkpoint ReferenceId="CABIN_PWR_12_V_SWITCH_OFF"/>
+            </Page>
+        </Step>
+
+        <Step ChecklistStepId="LANDING_TOUCHDOWN">
+            <!-- Normal landing -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_NORMAL_LANDING">
+                <Checkpoint ReferenceId="Flaps_Down">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Final_Approach_Airspeed_60-70_KIAS"/>
+                <Checkpoint ReferenceId="Touchdown_Main_First"/>
+                <Checkpoint ReferenceId="Landing_Roll_Lower_Nose_Gently"/>
+                <Checkpoint ReferenceId="Braking_Minimum_Required"/>
+            </Page>
+        </Step>
+
+        <Step ChecklistStepId="LANDING_GROUNDROLL">
+            <!-- After landing -->
+            <Page SubjectTT="TT:GAME.CHECKLIST_AFTER_LANDING">
+                <Checkpoint ReferenceId="Flaps_0">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_FLAPS" ExpectationTT="TT:GAME.CHECKLIST_UP"/>
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Landing_Light_As_Required"/>
+                <Checkpoint ReferenceId="Taxi_Light_As_Required"/>
+                <Checkpoint ReferenceId="Strobe_Light_Off"/>
+                <Checkpoint ReferenceId="Elevator_Trim_Neutral">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_ELEVATOR_TRIM" ExpectationTT="TT:GAME.CHECKLIST_RESET_TO_NEUTRAL"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Transponder_Standby"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Cowl_Flaps_Open"/>
+            </Page>
+        </Step>
+
+        <Step ChecklistStepId="LANDING_GATE">
+            <!-- Securing-->
+            <Page SubjectTT="TT:GAME.CHECKLIST_SECURING">
+                <Checkpoint ReferenceId="Parking_Brake_Set"/>
+                <Checkpoint ReferenceId="POWER_LEVER_IDLE"/>
+                <Checkpoint ReferenceId="C182T_AS1000_All_Electrical_Equipment_Off"/>
+                <Checkpoint ReferenceId="Avionics_Switch_Bus_1_And_Bus_2_Off">
+                    <!-- REVERIFIER : CONFLICT RESOLU -->
+                    <Clue name="TT:CLUE.AVIONICS_MASTER_SWITCHES_OFF"/>
+                    <SetTemplateValue Id="Circuit Avionics 1">
+                        <Val SimVarName="CIRCUIT SWITCH ON:24" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateValue Id="Circuit Avionics 2">
+                        <Val SimVarName="CIRCUIT SWITCH ON:25" Units="Boolean"/>
+                    </SetTemplateValue>
+                    <SetTemplateAction Id="Toggle Avionics Bus 1" Copilot="True" Condition="TestValueFalse" Once="true" Code="24 (&gt;K:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                    <SetTemplateAction Id="Toggle Avionics Bus 2" Copilot="True" Condition="TestValueFalse" Once="true" Code="25 (&gt;K:ELECTRICAL_CIRCUIT_TOGGLE)"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="Mixture_Lean">
+                    <Clue name="TT:CLUE.MIXTURE_CUTOFF"/>
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_MIXTURE" ExpectationTT="TT:GAME.CHECKLIST_IDLE_CUT_OFF"/>
+                </Checkpoint>                
+                <Checkpoint ReferenceId="Ignition_Off"/>
+                <Checkpoint ReferenceId="Avionics_Switch_Bus_1_And_Bus_2_Off"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_And_Bat_Off"/>
+                <Checkpoint ReferenceId="STBY_BATT_Switch_OFF"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Install_Control_Wheel_Lock"/>
+                <Checkpoint ReferenceId="FUEL_TANK_SELECTOR_OPEN_L_OR_R">
+                    <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_FUEL_SELECTOR" ExpectationTT="TT:GAME.CHECKLIST_LEFT_OR_RIGHT"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="OXYGEN_OFF"/>
+            </Page>
+        </Step>
+    </Checklist.Checklist>
+</SimBase.Document>
