@@ -13,6 +13,10 @@
             <Clue name="TT:Install the control wheel lock"/>
             <CheckpointDesc SubjectTT="TT:Control Wheel Lock (INOP)" ExpectationTT="TT:Installed" />
         </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_HOLD_UP_ELEVATOR">
+            <Clue name="TT:Hold back pressure on the yoke to keep the tail slightly low"/>
+            <CheckpointDesc SubjectTT="TT:Elevator Control" ExpectationTT="TT:Back Pressure, Tail Low" />
+        </Checkpoint>
         <Checkpoint Id="C182T_AS1000_All_Electrical_Equipment_Off">
             <Clue name="TT:CLUE.ALL_ELECTRICAL_EQUIPMENT_OFF"/>
             <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_ELECTRICAL_EQUIPMENT" ExpectationTT="TT:GAME.CHECKLIST_OFF"/>
@@ -279,8 +283,8 @@
             </Test>
         </Checkpoint>
         <Checkpoint Id="C182T_AS1000_THROTTLE_TO_32_INCHES">
-            <Clue name="TT:Throttle to 32 inches of manifold pressure"/>
-            <CheckpointDesc SubjectTT="TT:Throttle" ExpectationTT="TT:32 inches"/>
+            <Clue name="TT:Power lever to 32 inches of manifold pressure"/>
+            <CheckpointDesc SubjectTT="TT:Power" ExpectationTT="TT:32 inches"/>
             <!--UNDONE: Add code to verify this-->
             <Test>
                 <TestValue>
@@ -293,13 +297,13 @@
             </Test>
         </Checkpoint>
         <Checkpoint Id="C182T_AS1000_THROTTLE_TO_25_INCHES">
-            <Clue name="TT:Throttle to 25 inches of manifold pressure"/>
-            <CheckpointDesc SubjectTT="TT:Throttle" ExpectationTT="TT:25 inches"/>
+            <Clue name="TT:Power lever to 25 inches of manifold pressure"/>
+            <CheckpointDesc SubjectTT="TT:Power" ExpectationTT="TT:25 inches"/>
             <!--UNDONE: Add code to verify this-->
         </Checkpoint>
         <Checkpoint Id="C182T_AS1000_THROTTLE_15-28_INCHES">
-            <Clue name="TT:Throttle to 15-28 inches of manifold pressure"/>
-            <CheckpointDesc SubjectTT="TT:Throttle" ExpectationTT="TT:15-28 inches"/>
+            <Clue name="TT:Power lever to 15-28 inches of manifold pressure"/>
+            <CheckpointDesc SubjectTT="TT:Power" ExpectationTT="TT:15-28 inches"/>
             <!--UNDONE: Add code to verify this-->
         </Checkpoint>
         <Checkpoint Id="C182T_AS1000_PROPELLER_TO_2400_RPM">
@@ -322,23 +326,6 @@
             <CheckpointDesc SubjectTT="TT:Elevator Control" ExpectationTT="TT:50 to 60 knots"/>
             <!--UNDONE: Add code to verify this-->
         </Checkpoint>
-        <Checkpoint Id="C182T_AS1000_Airspeed_90-100_KIAS">
-            <Clue name="TT:Airspeed is between 90 and 100 KIAS"/>
-            <CheckpointDesc SubjectTT="TT:Airspeed" ExpectationTT="TT:90 to 100 knots"/>
-            <Test>
-                <TestValue>
-                    <Operator OpType="BETWEEN">
-                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
-                        <Val Value="90"/>
-                        <Val Value="100"/>
-                    </Operator>
-                </TestValue>
-                <Instrument Id="HTML:G1000_PFD:Airspeed"/>
-                <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
-                <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
-                <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
-            </Test>
-        </Checkpoint>
         <Checkpoint Id="C182T_AS1000_MONITOR_OXYGEN_SUPPLY">
             <Clue name="TT:Monitor oxygen supply (if in use)"/>
             <CheckpointDesc SubjectTT="TT:Oxygen supply" ExpectationTT="TT:Monitor"/>
@@ -349,8 +336,7 @@
             <Clue name="TT:Add 0-10 degrees of flaps below 140 KIAS"/>
             <Action Condition="Init" StoreVar="FLAPS_AIRSPEED" Value="0"/>
             <Sequence SeqType="Parallel">
-                <!--UNDONE: Do we need a test for flaps full here?-->
-                <Test>
+                 <Test>
                     <TestValue>
                         <Operator OpType="OR">
                             <Operator OpType="AND">
@@ -383,17 +369,243 @@
                                 <Operator OpType="BETWEEN">
                                     <Val SimVarName="FLAPS HANDLE INDEX" Units="Number"/>
                                     <Val Value="1"/>
-                                    <Val Value="3"/>
+                                    <Val Value="2"/>
                                 </Operator>
                             </Operator>
                             <Val ReadVar="FLAPS_AIRSPEED"/>
                         </Operator>
                     </TestValue>
-                    <Action Copilot="True" Condition="TestValueFalse" Once="true" EventID="FLAPS_DOWN"/>
-                    <Action Condition="TestValueTrue" Once="true" StoreVar="FLAPS_AIRSPEED" Value="1"/>
-                    <Instrument Id="HANDLING_Lever_Flaps"/>
+                    <Test>
+                        <TestValue>
+                            <Operator OpType="OR">
+                                <Operator OpType="AND">
+                                    <Operator OpType="LESS">
+                                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+                                        <Val Value="100"/>
+                                    </Operator>
+                                    <Operator OpType="BETWEEN">
+                                        <Val SimVarName="FLAPS HANDLE INDEX" Units="Number"/>
+                                        <Val Value="2"/>
+                                        <Val Value="3"/>
+                                    </Operator>
+                                </Operator>
+                                <Val ReadVar="FLAPS_AIRSPEED"/>
+                            </Operator>
+                        </TestValue>
+                        <Action Copilot="True" Condition="TestValueFalse" Once="true" EventID="FLAPS_DOWN"/>
+                        <Action Condition="TestValueTrue" Once="true" StoreVar="FLAPS_AIRSPEED" Value="1"/>
+                        <Instrument Id="HANDLING_Lever_Flaps"/>
+                    </Test>
                 </Test>
             </Sequence>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_FLAPS_RETRACT_SLOWLY_ABOVE_70_KIAS">
+            <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_FLAPS" ExpectationTT="TT:Retract Slowly"/>
+            <Clue name="TT:Retract wing flaps slowly once airspeed is above 70 KIAS"/>
+			<Sequence SeqType="Unordered">
+				<Test>
+					<TestValue>
+						<Operator OpType="GREATER">
+							<Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+							<Val Value="70"/>
+						</Operator>
+					</TestValue>
+					<Action Copilot="True" Condition="TestValueFalse" Once="false" SpecialAction="WaitForUserToDoIt"/>
+					<Instrument Id="HTML:G1000_PFD:AirSpeedIndicator"/>
+					<Instrument Id="HTML:AS1000_PFD:AirSpeedIndicator"/>
+				</Test>
+				<Test>
+					<TestValue>
+						<Operator OpType="EQUAL">
+							<Val SimVarName="FLAPS HANDLE INDEX" Units="number"/>
+							<Val Value="0"/>
+						</Operator>
+					</TestValue>
+					<Instrument Id="HANDLING_Lever_Flaps"/>
+					<Action Copilot="True" Condition="TestValueFalse" Once="true" EventID="FLAPS_UP"/>
+				</Test>
+			</Sequence>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_FLAPS_20_DEGREES">
+            <Clue name="TT:Wing flaps set to 20 degrees"/>
+            <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_FLAPS" ExpectationTT="TT:20 Degrees"/>
+            <Test>
+                <TestValue>
+                    <Operator OpType="EQUAL">
+                        <Val SimVarName="FLAPS HANDLE INDEX" Units="Number"/>
+                        <Val Value="2"/>
+                    </Operator>
+                </TestValue>
+                <Action Copilot="True" Condition="TestValueFalse" Once="true" EventID="FLAPS_2"/>
+                <Instrument Id="HANDLING_Lever_Flaps"/>
+            </Test>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_BRAKES_SET">
+            <Clue name="TT:Apply full brakes"/>
+            <CheckpointDesc SubjectTT="TT:Brakes" ExpectationTT="TT:Apply"/>
+            <Sequence SeqType="Unordered">
+                <Test>
+                    <Once>TRUE</Once>
+                    <TestValue>
+                        <Operator OpType="GREATER">
+                            <Val SimVarName="BRAKE LEFT POSITION" Units="percent"/>
+                            <Val Value="50"/>
+                        </Operator>
+                    </TestValue>
+                    <Action Copilot="True" Condition="TestValueFalse" Once="true" EventID="AXIS_LEFT_BRAKE_SET" EventParam="16383"/>
+                    <Duration Value="1.0" Cumulative="False"/>
+                </Test>
+                <Test>
+                    <Once>TRUE</Once>
+                    <TestValue>
+                        <Operator OpType="GREATER">
+                            <Val SimVarName="BRAKE RIGHT POSITION" Units="percent"/>
+                            <Val Value="50"/>
+                        </Operator>
+                    </TestValue>
+                    <Action Copilot="True" Condition="TestValueFalse" Once="true" EventID="AXIS_RIGHT_BRAKE_SET" EventParam="16383"/>
+                    <Duration Value="1.0" Cumulative="False"/>
+                </Test>
+            </Sequence>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_AIRSPEED_55_KIAS">
+            <Clue name="TT:Maintain 55 KIAS"/>
+            <CheckpointDesc SubjectTT="TT:Airspeed" ExpectationTT="TT:55 Knots"/>
+            <Test>
+                <TestValue>
+                    <Operator OpType="EQUAL">
+                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+                        <Val Value="55"/>
+                    </Operator>
+                </TestValue>
+                <Instrument Id="HTML:G1000_PFD:Airspeed"/>
+                <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed"/>
+                <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
+            </Test>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_AIRSPEED_60_KIAS">
+            <Clue name="TT:Maintain 60 KIAS"/>
+            <CheckpointDesc SubjectTT="TT:Airspeed" ExpectationTT="TT:60 Knots"/>
+            <Test>
+                <TestValue>
+                    <Operator OpType="EQUAL">
+                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+                        <Val Value="60"/>
+                    </Operator>
+                </TestValue>
+                <Instrument Id="HTML:G1000_PFD:Airspeed"/>
+                <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed"/>
+                <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
+            </Test>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_Airspeed_70-80_KIAS">
+            <Clue name="TT: Maintain airspeed between 70 and 80 KIAS"/>
+            <CheckpointDesc SubjectTT="TT:Airspeed" ExpectationTT="TT:70 to 80 knots"/>
+            <Test>
+                <TestValue>
+                    <Operator OpType="BETWEEN">
+                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+                        <Val Value="70"/>
+                        <Val Value="80"/>
+                    </Operator>
+                </TestValue>
+                <Instrument Id="HTML:G1000_PFD:Airspeed"/>
+                <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
+                <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
+            </Test>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_AIRSPEED_84_KIAS">
+            <Clue name="TT:Maintain 84 KIAS"/>
+            <CheckpointDesc SubjectTT="TT:Airspeed" ExpectationTT="TT:84 Knots"/>
+            <Test>
+                <TestValue>
+                    <Operator OpType="EQUAL">
+                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+                        <Val Value="84"/>
+                    </Operator>
+                </TestValue>
+                <Instrument Id="HTML:G1000_PFD:Airspeed"/>
+                <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed"/>
+                <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
+            </Test>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_Airspeed_90-100_KIAS">
+            <Clue name="TT:Maintain airspeed between 90 and 100 KIAS"/>
+            <CheckpointDesc SubjectTT="TT:Airspeed" ExpectationTT="TT:90 to 100 knots"/>
+            <Test>
+                <TestValue>
+                    <Operator OpType="BETWEEN">
+                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+                        <Val Value="90"/>
+                        <Val Value="100"/>
+                    </Operator>
+                </TestValue>
+                <Instrument Id="HTML:G1000_PFD:Airspeed"/>
+                <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
+                <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
+            </Test>
+        </Checkpoint>
+
+        <!--Reference Speeds-->
+        <Checkpoint Id="C182T_AS1000_VNE">
+            <CheckpointDesc SubjectTT="TT:VNE" ExpectationTT="TT:175 KIAS"/>
+            <Clue name="TT:Never Exeed Speed"/>          
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_VNO">
+            <CheckpointDesc SubjectTT="TT:VNO" ExpectationTT="TT:140 KIAS"/>
+            <Clue name="TT:Max Structural Cruising Speed"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_VA_3100">
+            <CheckpointDesc SubjectTT="3100 lbs" ExpectationTT="TT:110 KIAS"/>
+            <Clue name="TT:Maneuvering Speed"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_VA_2600">
+            <CheckpointDesc SubjectTT="TT:2600 lbs" ExpectationTT="TT:101 KIAS"/>
+            <Clue name="TT:Maneuvering Speed"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_VA_2100">
+            <CheckpointDesc SubjectTT="TT:2100 lbs" ExpectationTT="TT:91 KIAS"/>
+            <Clue name="TT:Maneuvering Speed"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_VX">
+            <CheckpointDesc SubjectTT="TT:VX" ExpectationTT="TT:64 KIAS"/>
+            <Clue name="TT:Best Angle-of-Climb Speed"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_VY">
+            <CheckpointDesc SubjectTT="TT:VY" ExpectationTT="TT:84 KIAS"/>
+            <Clue name="TT:Best Rate-of-Climb Speed"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_MAX_GLIDE_3100">
+            <CheckpointDesc SubjectTT="TT:3100 lbs" ExpectationTT="TT:75 KIAS"/>
+            <Clue name="TT:Maneuvering Speed"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_MAX_GLIDE_2600">
+            <CheckpointDesc SubjectTT="TT:2600 lbs" ExpectationTT="TT:69 KIAS"/>
+            <Clue name="TT:Maneuvering Speed"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_MAX_GLIDE_2100">
+            <CheckpointDesc SubjectTT="TT:2100 lbs" ExpectationTT="TT:62 KIAS"/>
+            <Clue name="TT:Maneuvering Speed"/>
+        </Checkpoint>        
+        <Checkpoint Id="C182T_AS1000_IAS_ WHITE">
+            <CheckpointDesc SubjectTT="TT:White Arc" ExpectationTT="TT:41-100 KIAS"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_IAS_GREEN">
+            <CheckpointDesc SubjectTT="TT:Green Arc" ExpectationTT="TT:51-140 KIAS"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_IAS_Yellow">
+            <CheckpointDesc SubjectTT="TT:Yellow Arc" ExpectationTT="TT:140-175 KIAS"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_IAS_RED">
+            <CheckpointDesc SubjectTT="TT:Red Arc" ExpectationTT="TT:175 KIAS"/>
         </Checkpoint>
     </Checklist.CheckpointLibrary> 
 </SimBase.Document>

@@ -278,6 +278,30 @@
                 <Checkpoint ReferenceId="Strobe_Light_On"/>
                 <Checkpoint ReferenceId="Parking_Brake_Release"/>
             </Page>
+        
+            <Page SubjectTT="TT:Reference Speeds">
+                <Checkpoint ReferenceId="C182T_AS1000_VNE"/>
+                <Checkpoint ReferenceId="C182T_AS1000_VNO"/>
+                <Checkpoint ReferenceId="C182T_AS1000_VNO"/>
+                <Block SubjectTT="TT:VA">
+                    <Checkpoint ReferenceId="C182T_AS1000_VA_3100"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_VA_2600"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_VA_2100"/>
+                </Block>
+                <Checkpoint ReferenceId="C182T_AS1000_VX"/>
+                <Checkpoint ReferenceId="C182T_AS1000_VY"/>
+                <Block SubjectTT="TT:Maximum Glide">
+                     <Checkpoint ReferenceId="C182T_AS1000_MAX_GLIDE_3100"/>
+                     <Checkpoint ReferenceId="C182T_AS1000_MAX_GLIDE_2600"/>
+                     <Checkpoint ReferenceId="C182T_AS1000_MAX_GLIDE_2100"/>
+                </Block>
+                <Block SubjectTT="TT:Airspeed Indicator Markings">
+                    <Checkpoint ReferenceId="C182T_AS1000_IAS_WHITE"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_IAS_GREEN"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_IAS_YELLOW"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_IAS_RED"/>
+                </Block>
+            </Page>
         </Step>
         
         <Step ChecklistStepId="FLIGHT_TAKEOFF">
@@ -303,6 +327,25 @@
                     <ForceCamera name="Radio Stack Bottom"/>
                 </Checkpoint>
             </Page>
+            
+            <!--Short field takeoff-->
+            <Page SubjectTT="TT:Short field Takeoff">
+                 <Checkpoint ReferenceId="C182T_AS1000_FLAPS_20_DEGREES">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_BRAKES_SET"/>
+                <Checkpoint ReferenceId="Throttle_Full"/>
+                <Checkpoint ReferenceId="C182T_AS1000_PROPELLER_TO_2400_RPM"/>
+                <Checkpoint ReferenceId="C182T_AS1000_MIXTURE_24_GPH"/>
+                <Checkpoint ReferenceId="Brakes_Released"/>
+                <Checkpoint ReferenceId="C182T_AS1000_HOLD_UP_ELEVATOR"/>
+                <Checkpoint ReferenceId="C182T_AS1000_AIRSPEED_60_KIAS">
+                    <ForceCamera name="ClosePilot"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_FLAPS_RETRACT_SLOWLY_ABOVE_70_KIAS">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>           
+            </Page>
 
             <!-- Enroute climb -->
             <Page SubjectTT="TT:GAME.CHECKLIST_ENROUTE_CLIMB">
@@ -318,6 +361,22 @@
                 <Checkpoint ReferenceId="Fuel_Selector_Both"/>
                 <Checkpoint ReferenceId="C182T_AS1000_Cowl_Flaps_Open"/>
                 <Checkpoint ReferenceId="OXYGEN_ON"/>
+            </Page>
+        
+            <!--Maximum performance climb-->
+            <Page SubjectTT="TT:Maximum Performance Climb">
+                <Checkpoint ReferenceId="Airspeed_70-85_KIAS"/>
+                <Checkpoint ReferenceId="C182T_AS1000_THROTTLE_TO_32_INCHES">
+                    <ForceCamera name="ClosePilot"/>
+                    <!--UNDONE: Change these to manifold pressure instruments
+                    <Instrument Id="HTML:AS1000_PFD:Piston_RPMGauge"/>
+                    <Instrument Id="HTML:AS1000_MFD:Piston_RPMGauge"/>-->
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_PROPELLER_TO_2400_RPM"/>
+                <Checkpoint ReferenceId="C182T_AS1000_MIXTURE_24_GPH"/>
+                <Checkpoint ReferenceId="Fuel_Selector_Both"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Cowl_Flaps_Open"/>
+                <Checkpoint ReferenceId="OXYGEN_ON"/>            
             </Page>
         </Step>
 
@@ -380,13 +439,45 @@
         <Step ChecklistStepId="LANDING_TOUCHDOWN">
             <!-- Normal landing -->
             <Page SubjectTT="TT:GAME.CHECKLIST_NORMAL_LANDING">
-                <Checkpoint ReferenceId="Flaps_Down">
+                 <Checkpoint ReferenceId="Airspeed_70-80_KIAS"/>            
+                <Checkpoint ReferenceId="C182T_AS1000_FLAPS_AS_DESIRED_0-10_BELOW_140_KIAS">
                     <ForceCamera name="Radio Stack Bottom"/>
                 </Checkpoint>
                 <Checkpoint ReferenceId="Final_Approach_Airspeed_60-70_KIAS"/>
+                <Checkpoint ReferenceId="TRIMS_SET"/>
                 <Checkpoint ReferenceId="Touchdown_Main_First"/>
                 <Checkpoint ReferenceId="Landing_Roll_Lower_Nose_Gently"/>
                 <Checkpoint ReferenceId="Braking_Minimum_Required"/>
+            </Page>
+
+            <!--Short field landing-->
+            <Page SubjectTT="TT:Short Field Landing">
+                <Checkpoint ReferenceId="C182T_AS1000_Airspeed_70-80_KIAS"/>            
+                <Checkpoint ReferenceId="Flaps_Down">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="C182T_AS1000_AIRSPEED_60_KIAS"/>
+                <Checkpoint ReferenceId="TRIMS_SET"/>
+                <Checkpoint ReferenceId="POWER_LEVER_IDLE"/>
+                <Checkpoint ReferenceId="Touchdown_Main_First"/>
+                <Checkpoint ReferenceId="Landing_Roll_Lower_Nose_Gently"/>
+                <Checkpoint ReferenceId="Braking_Minimum_Required"/>                          
+            </Page>
+        
+            <!--Balked landing-->
+            <Page SubjectTT="TT:Balked Landing">
+                 <Checkpoint ReferenceId="C182T_AS1000_THROTTLE_TO_32_INCHES">
+                    <ForceCamera name="ClosePilot"/>
+                    <!--UNDONE: Change these to manifold pressure instruments
+                    <Instrument Id="HTML:AS1000_PFD:Piston_RPMGauge"/>
+                    <Instrument Id="HTML:AS1000_MFD:Piston_RPMGauge"/>-->
+                </Checkpoint> 
+                <Checkpoint ReferenceId="C182T_AS1000_FLAPS_20_DEGREES"/>
+                <Checkpoint ReferenceId="C182T_AS1000_AIRSPEED_55_KIAS"/>
+                <Checkpoint ReferenceId="Flaps_Up_Above_300_Ft">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint> 
+                <Checkpoint ReferenceId="C182T_AS1000_Cowl_Flaps_Open"/>
             </Page>
         </Step>
 
