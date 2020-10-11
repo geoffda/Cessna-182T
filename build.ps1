@@ -84,7 +84,7 @@ function build {
         title                = "Cessna-182T"
         manufacturer         = "Textron Aviation"
         creator              = "Geoff Darst"
-        package_version      = "0.5.1"
+        package_version      = "0.5.2"
         minimum_game_version = "1.9.3"
         release_notes        = @{
             neutral = @{
