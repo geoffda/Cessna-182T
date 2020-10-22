@@ -502,6 +502,54 @@
                 <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
             </Test>
         </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_Airspeed_70_KIAS_FLAPS">
+            <Clue name="TT: Maintain 70 KIAS with Flaps 10 degrees to full"/>
+            <CheckpointDesc SubjectTT="TT:Airspeed with flaps extended" ExpectationTT="TT:70 knots"/>
+            <Test>
+                <TestValue>
+                    <Operator OpType="EQUAL">
+                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+                        <Val Value="70"/>
+                    </Operator>
+                </TestValue>
+                <Instrument Id="HTML:G1000_PFD:Airspeed"/>
+                <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
+                <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
+            </Test>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_Airspeed_75_KIAS_NO_FLAPS">
+            <Clue name="TT: Maintain 75 KIAS with flaps up"/>
+            <CheckpointDesc SubjectTT="TT:Airspeed with flaps up" ExpectationTT="TT:75 knots"/>
+            <Test>
+                <TestValue>
+                    <Operator OpType="EQUAL">
+                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+                        <Val Value="75"/>
+                    </Operator>
+                </TestValue>
+                <Instrument Id="HTML:G1000_PFD:Airspeed"/>
+                <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
+                <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
+            </Test>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_Airspeed_75_KIAS">
+            <Clue name="TT: Maintain 75 KIAS"/>
+            <CheckpointDesc SubjectTT="TT:Airspeed" ExpectationTT="TT:75 knots"/>
+            <Test>
+                <TestValue>
+                    <Operator OpType="EQUAL">
+                        <Val SimVarName="AIRSPEED INDICATED" Units="knots"/>
+                        <Val Value="75"/>
+                    </Operator>
+                </TestValue>
+                <Instrument Id="HTML:G1000_PFD:Airspeed"/>
+                <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
+                <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
+                <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
+            </Test>
+        </Checkpoint>
         <Checkpoint Id="C182T_AS1000_Airspeed_70-80_KIAS">
             <Clue name="TT: Maintain airspeed between 70 and 80 KIAS"/>
             <CheckpointDesc SubjectTT="TT:Airspeed" ExpectationTT="TT:70 to 80 knots"/>
@@ -551,6 +599,76 @@
                 <Instrument Id="HTML:AS1000_PFD:Airspeed"/>
                 <Instrument Id="INSTRUMENT_Needle_Airspeed_Highlight"/>
                 <Action Copilot="True" Condition="TestValueFalse" SpecialAction="WaitUntilTestValueValidated"/>
+            </Test>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_MAX_APPLY_BRAKES">
+            <Clue name="TT:Apply maximum braking"/>
+            <CheckpointDesc SubjectTT="TT:Brakes" ExpectationTT="TT:Apply Maximum"/>
+            <Sequence SeqType="Unordered">
+                <Test>
+                    <!-- Is on ground  -->
+                    <TestValue>
+                        <Val SimVarName="SIM ON GROUND" Units="Boolean"/>
+                    </TestValue>
+                    <Instrument Id="HANDLING_RudderPedals"/>
+                    <Instrument Id="HANDLING_RudderPedals1"/>
+                    <Instrument Id="HANDLING_RudderPedals2"/>
+                </Test>
+                <Test>
+                    <!-- apply brake;  -->
+                    <Once>TRUE</Once>
+                    <TestValue>
+                        <Operator OpType="GREATER">
+                            <Val SimVarName="BRAKE LEFT POSITION" Units="percent"/>
+                            <Val Value="100"/>
+                        </Operator>
+                    </TestValue>
+                    <Action Copilot="True" Condition="TestValueFalse" Once="true" EventID="AXIS_LEFT_BRAKE_SET" EventParam="16383"/>
+                    <Duration Value="0.1" Cumulative="False"/>
+                </Test>
+                <Test>
+                    <!-- apply brake;  -->
+                    <Once>TRUE</Once>
+                    <TestValue>
+                        <Operator OpType="GREATER">
+                            <Val SimVarName="BRAKE RIGHT POSITION" Units="percent"/>
+                            <Val Value="100"/>
+                        </Operator>
+                    </TestValue>
+                    <Action Copilot="True" Condition="TestValueFalse" Once="true" EventID="AXIS_RIGHT_BRAKE_SET" EventParam="16383"/>
+                    <Duration Value="0.1" Cumulative="False"/>
+                </Test>
+            </Sequence>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_UNLATCH_CABIN_DOOR">
+            <Clue name="TT:Unlatch cabin door prior to touchdown"/>
+            <CheckpointDesc SubjectTT="TT:Cabin Door" ExpectationTT="TT:Unlatched"/>
+            <!--UNDONE: Add code to verify this-->
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_LAND_STRAIGHT_AHEAD">
+            <Clue name="TT:Land straight ahead"/>
+            <CheckpointDesc SubjectTT="TT:Landing" ExpectationTT="TT:Straight Ahead"/>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_AUX_FUEL_PUMP_ON">
+            <Clue name="TT:Turn the fuel pump on"/>
+            <CheckpointDesc SubjectTT="TT:Fuel Pump" ExpectationTT="TT:GAME.CHECKLIST_ON"/>
+            <Test>
+                <TestValue>
+                    <Val SimVarName="GENERAL ENG FUEL PUMP SWITCH:1" Units="Boolean"/>
+                </TestValue>
+                <Action Copilot="True" Condition="TestValueFalse" Once="true" EventID="TOGGLE_ELECT_FUEL_PUMP1"/>
+                <Instrument Id="FUEL_Switch_Pump"/>
+            </Test>
+        </Checkpoint>
+        <Checkpoint Id="C182T_AS1000_AUX_FUEL_PUMP_OFF">
+            <Clue name="TT:Turn the fuel pump on"/>
+            <CheckpointDesc SubjectTT="TT:Fuel Pump" ExpectationTT="TT:GAME.CHECKLIST_OFF"/>
+            <Test>
+                <TestValue>
+                    <Val SimVarName="GENERAL ENG FUEL PUMP SWITCH:1" Units="Boolean"/>
+                </TestValue>
+                <Action Copilot="True" Condition="TestValueTrue" Once="true" EventID="TOGGLE_ELECT_FUEL_PUMP1"/>
+                <Instrument Id="FUEL_Switch_Pump"/>
             </Test>
         </Checkpoint>
 

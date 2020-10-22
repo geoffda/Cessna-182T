@@ -278,30 +278,6 @@
                 <Checkpoint ReferenceId="Strobe_Light_On"/>
                 <Checkpoint ReferenceId="Parking_Brake_Release"/>
             </Page>
-        
-            <Page SubjectTT="TT:Reference Speeds">
-                <Checkpoint ReferenceId="C182T_AS1000_VNE"/>
-                <Checkpoint ReferenceId="C182T_AS1000_VNO"/>
-                <Checkpoint ReferenceId="C182T_AS1000_VNO"/>
-                <Block SubjectTT="TT:VA">
-                    <Checkpoint ReferenceId="C182T_AS1000_VA_3100"/>
-                    <Checkpoint ReferenceId="C182T_AS1000_VA_2600"/>
-                    <Checkpoint ReferenceId="C182T_AS1000_VA_2100"/>
-                </Block>
-                <Checkpoint ReferenceId="C182T_AS1000_VX"/>
-                <Checkpoint ReferenceId="C182T_AS1000_VY"/>
-                <Block SubjectTT="TT:Maximum Glide">
-                     <Checkpoint ReferenceId="C182T_AS1000_MAX_GLIDE_3100"/>
-                     <Checkpoint ReferenceId="C182T_AS1000_MAX_GLIDE_2600"/>
-                     <Checkpoint ReferenceId="C182T_AS1000_MAX_GLIDE_2100"/>
-                </Block>
-                <Block SubjectTT="TT:Airspeed Indicator Markings">
-                    <Checkpoint ReferenceId="C182T_AS1000_IAS_WHITE"/>
-                    <Checkpoint ReferenceId="C182T_AS1000_IAS_GREEN"/>
-                    <Checkpoint ReferenceId="C182T_AS1000_IAS_YELLOW"/>
-                    <Checkpoint ReferenceId="C182T_AS1000_IAS_RED"/>
-                </Block>
-            </Page>
         </Step>
         
         <Step ChecklistStepId="FLIGHT_TAKEOFF">
@@ -530,6 +506,109 @@
                     <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_FUEL_SELECTOR" ExpectationTT="TT:GAME.CHECKLIST_LEFT_OR_RIGHT"/>
                 </Checkpoint>
                 <Checkpoint ReferenceId="OXYGEN_OFF"/>
+            </Page>
+            
+            <Page SubjectTT="TT:Reference Speeds">
+                <Checkpoint ReferenceId="C182T_AS1000_VNE"/>
+                <Checkpoint ReferenceId="C182T_AS1000_VNO"/>
+                <Checkpoint ReferenceId="C182T_AS1000_VNO"/>
+                <Block SubjectTT="TT:VA">
+                    <Checkpoint ReferenceId="C182T_AS1000_VA_3100"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_VA_2600"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_VA_2100"/>
+                </Block>
+                <Checkpoint ReferenceId="C182T_AS1000_VX"/>
+                <Checkpoint ReferenceId="C182T_AS1000_VY"/>
+                <Block SubjectTT="TT:Maximum Glide">
+                     <Checkpoint ReferenceId="C182T_AS1000_MAX_GLIDE_3100"/>
+                     <Checkpoint ReferenceId="C182T_AS1000_MAX_GLIDE_2600"/>
+                     <Checkpoint ReferenceId="C182T_AS1000_MAX_GLIDE_2100"/>
+                </Block>
+                <Block SubjectTT="TT:Airspeed Indicator Markings">
+                    <Checkpoint ReferenceId="C182T_AS1000_IAS_WHITE"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_IAS_GREEN"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_IAS_YELLOW"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_IAS_RED"/>
+                </Block>
+            </Page>
+        
+            <!-- EMERGENCY -->
+            <!--Engine failure after takeoff-->
+            <Page SubjectTT="TT:Engine Failure During Takeoff Roll">
+                <Checkpoint ReferenceId="C182T_AS1000_ENGINE_FAILURE_AFTER_TAKEOFF"/>
+                <Checkpoint ReferenceId="POWER_LEVER_IDLE"/>
+                <Checkpoint ReferenceId="C182T_AS1000_MAX_APPLY_BRAKES"/>
+                <Checkpoint ReferenceId="Flaps_0"/>
+                <Checkpoint ReferenceId="Mixture_Lean">
+                    <Clue name="TT:CLUE.MIXTURE_CUTOFF"/>
+                <CheckpointDesc SubjectTT="TT:GAME.CHECKLIST_MIXTURE" ExpectationTT="TT:GAME.CHECKLIST_IDLE_CUT_OFF"/>
+                </Checkpoint>     
+                <Checkpoint ReferenceId="Ignition_Off"/>
+                <Checkpoint ReferenceId="STBY_BATT_Switch_OFF"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_And_Bat_Off"/>
+            </Page>
+        
+            <!--Engine failure immediately after takeoff-->
+            <Page SubjectTT="TT:Engine Failure Immediately After Takeoff">
+                <Block SubjectTT="TT:Airspeed">
+                    <Checkpoint ReferenceId="C182T_AS1000_Airspeed_75_KIAS_NO_FLAPS"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_Airspeed_70_KIAS_FLAPS"/>
+                </Block>
+                <Checkpoint ReferenceId="Fuel_Selector_Off"/>
+                <Checkpoint ReferenceId="Ignition_Off"/>
+                <Checkpoint ReferenceId="C182T_AS1000_FLAPS_AS_DESIRED_0-10_BELOW_140_KIAS">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="STBY_BATT_Switch_OFF"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_And_Bat_Off"/>
+                <Checkpoint ReferenceId="C182T_AS1000_UNLATCH_CABIN_DOOR"/>
+            </Page>
+        
+            <!--Engine failure during flight-->
+            <Page SubjectTT="TT:Engine Failure During Flight (Restart Procedures)">
+                <Checkpoint ReferenceId="C182T_AS1000_Airspeed_75_KIAS"/>
+                <Checkpoint ReferenceId="Fuel_Selector_Both"/>
+                <Checkpoint ReferenceId="C182T_AS1000_AUX_FUEL_PUMP_ON"/>
+                <Checkpoint ReferenceId="Mixture_Rich"/>
+                <Checkpoint ReferenceId="Magneto_Both"/>
+                <Checkpoint ReferenceId="C182T_AS1000_AUX_FUEL_PUMP_OFF"/>
+            </Page>
+        
+            <!--Emergency landing without engine power-->
+            <Page SubjectTT="TT:Emergency Landing Without Engine Power)">
+                <Checkpoint ReferenceId="PILOT_AND_PASSENGER_SEAT_BACKS_MOST_UPRIGHT_POSITION"/>
+                <Checkpoint ReferenceId="Seat_Belt_Secured_And_Locked"/>
+                <Block SubjectTT="TT:Airspeed">
+                    <Checkpoint ReferenceId="C182T_AS1000_Airspeed_75_KIAS_NO_FLAPS"/>
+                    <Checkpoint ReferenceId="C182T_AS1000_Airspeed_70_KIAS_FLAPS"/>
+                </Block>
+                <Checkpoint ReferenceId="Fuel_Selector_Off"/>
+                <Checkpoint ReferenceId="Ignition_Off"/>
+                <Checkpoint ReferenceId="C182T_AS1000_FLAPS_AS_DESIRED_0-10_BELOW_140_KIAS">
+                    <ForceCamera name="Radio Stack Bottom"/>
+                </Checkpoint>
+                <Checkpoint ReferenceId="STBY_BATT_Switch_OFF"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_And_Bat_Off"/>
+                <Checkpoint ReferenceId="C182T_AS1000_UNLATCH_CABIN_DOOR"/>
+                <Checkpoint ReferenceId="Touchdown_Main_First"/>
+                <Checkpoint ReferenceId="C182T_AS1000_MAX_APPLY_BRAKES"/>
+            </Page>
+        
+            <!--Precautionary landing with engine power-->
+            <Page SubjectTT="TT:Emergency Landing Without Engine Power)">
+                <Checkpoint ReferenceId="PILOT_AND_PASSENGER_SEAT_BACKS_MOST_UPRIGHT_POSITION"/>
+                <Checkpoint ReferenceId="Seat_Belt_Secured_And_Locked"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Airspeed_75_KIAS"/>
+                <Checkpoint ReferenceId="C182T_AS1000_FLAPS_20_DEGREES"/>
+                <!--UNDONE Selected Field Flyover and go Full Flaps-->
+                
+                <Checkpoint ReferenceId="C182T_AS1000_Airspeed_70_KIAS_FLAPS"/>
+                <Checkpoint ReferenceId="STBY_BATT_Switch_OFF"/>
+                <Checkpoint ReferenceId="C182T_AS1000_Master_Switch_Alt_And_Bat_Off"/>
+                <Checkpoint ReferenceId="C182T_AS1000_UNLATCH_CABIN_DOOR"/>
+                <Checkpoint ReferenceId="Touchdown_Main_First"/>
+                <Checkpoint ReferenceId="Ignition_Off"/>
+                <Checkpoint ReferenceId="C182T_AS1000_MAX_APPLY_BRAKES"/>
             </Page>
         </Step>
     </Checklist.Checklist>
