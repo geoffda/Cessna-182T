@@ -1,21 +1,6 @@
 {
     "content":  [
                     {
-                        "date":  132477027251127654,
-                        "path":  "SimObjects/Airplanes/Carenado_CT182T_Skylane_G1000/Climb.flt",
-                        "size":  2905
-                    },
-                    {
-                        "date":  132477027052736616,
-                        "path":  "SimObjects/Airplanes/Carenado_CT182T_Skylane_G1000/runway.FLT",
-                        "size":  2640
-                    },
-                    {
-                        "date":  132477026959328016,
-                        "path":  "SimObjects/Airplanes/Carenado_CT182T_Skylane_G1000/taxi.flt",
-                        "size":  2631
-                    },
-                    {
                         "date":  132477053073240163,
                         "path":  "SimObjects/Airplanes/Carenado_CT182T_Skylane_G1000/Checklist/Carenado_CT182T_Skylane_G1000_Checklist.xml",
                         "size":  37780
